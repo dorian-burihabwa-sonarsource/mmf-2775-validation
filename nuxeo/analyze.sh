@@ -2,13 +2,42 @@
 
 readonly base_branch="$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')"
 
+
+print_usage() {
+    echo "Usage: ${0} <true|false> [branch-name]"
+}
+
 analyze() {
+    if [[ "${#}" -eq 0 || "${#}" -gt 2 ]]; then
+        print_usage
+        exit 0
+    fi
+
+    # Check if the cache needs to be enabled
+    local cache_enabled=${1}
+    if [[ "${cache_enabled}" != "true" && "${cache_enabled}" != "false" ]]; then
+        echo "First argument must be true or false to indicate whether to use the cache (received: ${cache_enabled})" >&2
+        exit 0
+    fi
+
+    # Check if we need to create and move to a new branch
+    if [[ "${#}" -eq 2 ]]; then
+        local branch_to_create="${2}"
+        git switch --create "${branch_to_create}"
+    fi
+
+    # Create report folders
     local current_date=$(date -u +'%Y-%m-%d-T%H%M%S')
-    local reports_folder="/reports/${current-date}/"
+    local reports_folder="/reports/${current_date}"
+    mkdir -p "${reports_folder}"
     local current_branch=$(git branch --quiet | grep "\*" | cut -f2 -d" ")
-    echo "${current_branch}"
-    local analysis_report="${reports_folder}/sq-${current_date}-nocache-${current_branch}.log"
-    local performance_report="${reports_folder}/sonar.java.performance.measure-${current_date}-nocache-${current_branch}.json"
+    local using_cache="no-cache"
+    if [[ "${cache_enabled}" == "true" ]]; then
+        using_cache="with-cache"
+    fi
+    local analysis_report="${reports_folder}/sq-${using_cache}-${current_branch}.log"
+    local performance_report="${reports_folder}/sonar.java.performance.measure-${using_cache}-${current_branch}.json"
+
     if [[ "${current_branch}" == "${base_branch}" ]]; then
         echo "On the base branch"
         mvn sonar:sonar -B -e \
@@ -18,7 +47,7 @@ analyze() {
             -Dsonar.login="${SONARQUBE_TOKEN}" \
             -Dsonar.java.performance.measure=true \
             -Dsonar.java.performance.measure.path="${performance_report}" \
-            -Dsonar.analysisCache.enabled=true \
+            -Dsonar.analysisCache.enabled="${cache_enabled}" \
             -Dsonar.internal.analysis.dbd=false > "${analysis_report}"
     else
         echo "Analysing ${current_branch} to merge into base branch ${base_branch}"
@@ -32,9 +61,9 @@ analyze() {
             -Dsonar.pullrequest.key="${current_branch}" \
             -Dsonar.pullrequest.branch="${current_branch}" \
             -Dsonar.pullrequest.base="${base_branch}" \
-            -Dsonar.analysisCache.enabled=false \
+            -Dsonar.analysisCache.enabled="${cache_enabled}" \
             -Dsonar.internal.analysis.dbd=false > "${analysis_report}"
     fi
 }
 
-analyze
+analyze "${@}"
