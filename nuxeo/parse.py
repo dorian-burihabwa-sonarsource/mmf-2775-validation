@@ -1,13 +1,12 @@
 #! /usr/bin/env python3
 
+from ast import arg
 from dataclasses import dataclass
 
-import csv
+import argparse
 import json
 import os
 import re
-
-__FOLDER="./reports"
 
 def list_entries(root):
     return sorted([os.path.join(root, entry) for entry in os.listdir(root)])
@@ -38,9 +37,9 @@ def inspect_sample(sample_folder):
     return Sample(branch_name, cache_enabled, runtime).to_text_array()
 
 
-def build_table():
+def build_table(folder):
     table = [["Branch", "Cache enabled", "Runtime (ns)"]]
-    sample_folders = list_folders(__FOLDER)
+    sample_folders = list_folders(folder)
     for sample_folder in sample_folders:
         line = inspect_sample(sample_folder)
         table.append(line)
@@ -48,7 +47,10 @@ def build_table():
 
 
 def main():
-    table = build_table()
+    parser = argparse.ArgumentParser(__file__, "Parse analysis results")
+    parser.add_argument("reportsfolder", help="Path where the reports were dumped", type=str)
+    args = parser.parse_args()
+    table = build_table(args.reportsfolder)
     for line in table:
         row = ""
         for token in line:
