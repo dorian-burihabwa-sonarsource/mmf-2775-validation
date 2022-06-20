@@ -1,0 +1,178 @@
+{ "name": "JavaSensor", "calls": 237, "durationNanos": 192538558331, "children": [
+    { "name": "#MeasurementCost_v1", "calls": 237, "durationNanos": 25675902, "children": [
+        { "name": "createChild", "calls": 237, "durationNanos": 29406 },
+        { "name": "incrementChild", "calls": 237, "durationNanos": 24457 },
+        { "name": "nanoTime", "calls": 237, "durationNanos": 4851 },
+        { "name": "observationCost", "calls": 237, "durationNanos": 4840 }
+      ]
+    },
+    { "name": "ParseAsBatch", "calls": 431, "durationNanos": 189552510259, "children": [
+        { "name": "Analyze", "calls": 6814, "durationNanos": 152542272801, "children": [
+            { "name": "Main", "calls": 5164, "durationNanos": 151102329996, "children": [
+                { "name": "CompilationUnit", "calls": 5164, "durationNanos": 2166710 },
+                { "name": "Scanners", "calls": 5164, "durationNanos": 150566965478, "children": [
+                    { "name": "AllowXMLInclusionCheck", "calls": 5164, "durationNanos": 232323 },
+                    { "name": "BooleanGratuitousExpressionsCheck", "calls": 5164, "durationNanos": 7528263 },
+                    { "name": "ClassCastCheck", "calls": 5164, "durationNanos": 9726019935 },
+                    { "name": "CollectionModifiedDuringIterationCheck", "calls": 5164, "durationNanos": 2644749 },
+                    { "name": "ConditionalUnreachableCodeCheck", "calls": 5164, "durationNanos": 1820347 },
+                    { "name": "DefaultJavaResourceLocator", "calls": 5164, "durationNanos": 130678619 },
+                    { "name": "DenialOfServiceXMLCheck", "calls": 5164, "durationNanos": 281030 },
+                    { "name": "DeserializationCheck", "calls": 5164, "durationNanos": 2674640 },
+                    { "name": "DivisionByZeroCheck", "calls": 5164, "durationNanos": 382706 },
+                    { "name": "DynamicCodeExecutionCheck", "calls": 5164, "durationNanos": 2549051 },
+                    { "name": "FileLinesVisitor", "calls": 5164, "durationNanos": 1737085461 },
+                    { "name": "FilePathInjectionCheck", "calls": 5164, "durationNanos": 2742953 },
+                    { "name": "HttpRedirectionCheck", "calls": 5164, "durationNanos": 2587617 },
+                    { "name": "IllegalArgumentCheck", "calls": 5164, "durationNanos": 12525025 },
+                    { "name": "InfiniteRecursionCheck", "calls": 5164, "durationNanos": 3328802 },
+                    { "name": "IntentRedirectionCheck", "calls": 5164, "durationNanos": 2504069 },
+                    { "name": "InvariantReturnCheck", "calls": 5164, "durationNanos": 5179732 },
+                    { "name": "IssuableSubscriptionVisitorsRunner", "calls": 5164, "durationNanos": 400541102, "children": [
+                        { "name": "IssuableSubscriptionVisitors", "calls": 5164, "durationNanos": 396902672, "children": [
+                            { "name": "ExcessiveContentRequestCheck", "calls": 320310, "durationNanos": 144552932 }
+                          ]
+                        }
+                      ]
+                    },
+                    { "name": "JSONOperationsCheck", "calls": 5164, "durationNanos": 2617751 },
+                    { "name": "LDAPInjectionCheck", "calls": 5164, "durationNanos": 2587394 },
+                    { "name": "LocksNotUnlockedCheck", "calls": 5164, "durationNanos": 351269 },
+                    { "name": "LoggingInjectionCheck", "calls": 5164, "durationNanos": 2548358 },
+                    { "name": "MapComputeIfAbsentOrPresentCheck", "calls": 5164, "durationNanos": 3117642 },
+                    { "name": "Measurer", "calls": 5164, "durationNanos": 2376608543 },
+                    { "name": "MinMaxRangeCheck", "calls": 5164, "durationNanos": 216048 },
+                    { "name": "NoSQLInjectionCheck", "calls": 5164, "durationNanos": 2491993 },
+                    { "name": "NoWayOutLoopCheck", "calls": 5164, "durationNanos": 273765 },
+                    { "name": "NonNullSetToNullCheck", "calls": 5164, "durationNanos": 274873 },
+                    { "name": "NullDereferenceCheck", "calls": 5164, "durationNanos": 5254996 },
+                    { "name": "OSArgumentConstructionCheck", "calls": 5164, "durationNanos": 2551415 },
+                    { "name": "OSArgumentInjectionCheck", "calls": 5164, "durationNanos": 3035636 },
+                    { "name": "OSCommandInjectionCheck", "calls": 5164, "durationNanos": 3480152 },
+                    { "name": "ObjectOutputStreamCheck", "calls": 5164, "durationNanos": 277781 },
+                    { "name": "OptionalGetBeforeIsPresentCheck", "calls": 5164, "durationNanos": 215864 },
+                    { "name": "ParameterNullnessCheck", "calls": 5164, "durationNanos": 230930 },
+                    { "name": "PostAnalysisIssueFilter", "calls": 5164, "durationNanos": 1341219999 },
+                    { "name": "RedundantAssignmentsCheck", "calls": 5164, "durationNanos": 2717416 },
+                    { "name": "ReflectedXssCheck", "calls": 5164, "durationNanos": 7154536454 },
+                    { "name": "ReflectionInjectionCheck", "calls": 5164, "durationNanos": 2703634 },
+                    { "name": "RegularExpressionDoSCheck", "calls": 5164, "durationNanos": 2588608 },
+                    { "name": "SQLInjectionCheck", "calls": 5164, "durationNanos": 10945168 },
+                    { "name": "ServerSideRequestCheck", "calls": 5164, "durationNanos": 2765985 },
+                    { "name": "SessionFixationCheck", "calls": 5164, "durationNanos": 2587016 },
+                    { "name": "StreamConsumedCheck", "calls": 5164, "durationNanos": 209634 },
+                    { "name": "StreamNotConsumedCheck", "calls": 5164, "durationNanos": 318265 },
+                    { "name": "SymbolicExecutionVisitor", "calls": 5164, "durationNanos": 126743018443, "children": [
+                        { "name": "AllowXMLInclusionCheck", "calls": 8902291, "durationNanos": 1015985289 },
+                        { "name": "BooleanGratuitousExpressionsCheck", "calls": 8902291, "durationNanos": 265176159 },
+                        { "name": "ConditionalUnreachableCodeCheck", "calls": 8902291, "durationNanos": 228805426 },
+                        { "name": "DenialOfServiceXMLCheck", "calls": 8902291, "durationNanos": 1476150060 },
+                        { "name": "DivisionByZeroCheck", "calls": 8902317, "durationNanos": 1883316746 },
+                        { "name": "EndOfExecution", "calls": 36737, "durationNanos": 666636235, "children": [
+                            { "name": "AllowXMLInclusionCheck", "calls": 36737, "durationNanos": 920364 },
+                            { "name": "BooleanGratuitousExpressionsCheck", "calls": 36737, "durationNanos": 169174206 },
+                            { "name": "ConditionalUnreachableCodeCheck", "calls": 36737, "durationNanos": 92510578 },
+                            { "name": "DenialOfServiceXMLCheck", "calls": 36737, "durationNanos": 1301114 },
+                            { "name": "DivisionByZeroCheck", "calls": 36737, "durationNanos": 3142496 },
+                            { "name": "InvariantReturnCheck", "calls": 36737, "durationNanos": 21872766 },
+                            { "name": "LocksNotUnlockedCheck", "calls": 36737, "durationNanos": 1038352 },
+                            { "name": "MapComputeIfAbsentOrPresentCheck", "calls": 36737, "durationNanos": 124822626 },
+                            { "name": "MinMaxRangeCheck", "calls": 36737, "durationNanos": 899087 },
+                            { "name": "NoWayOutLoopCheck", "calls": 36737, "durationNanos": 35225878 },
+                            { "name": "NonNullSetToNullCheck", "calls": 36737, "durationNanos": 4319168 },
+                            { "name": "NullDereferenceCheck", "calls": 36737, "durationNanos": 102922755 },
+                            { "name": "ObjectOutputStreamCheck", "calls": 36737, "durationNanos": 1164842 },
+                            { "name": "OptionalGetBeforeIsPresentCheck", "calls": 36737, "durationNanos": 1316917 },
+                            { "name": "ParameterNullnessCheck", "calls": 36737, "durationNanos": 895366 },
+                            { "name": "RedundantAssignmentsCheck", "calls": 36737, "durationNanos": 21152995 },
+                            { "name": "StreamConsumedCheck", "calls": 36737, "durationNanos": 966324 },
+                            { "name": "StreamNotConsumedCheck", "calls": 36737, "durationNanos": 1036715 },
+                            { "name": "UnclosedResourcesCheck", "calls": 36737, "durationNanos": 1036615 },
+                            { "name": "XmlParserLoadsExternalSchemasCheck", "calls": 36737, "durationNanos": 951042 },
+                            { "name": "XmlValidatedSignatureCheck", "calls": 36737, "durationNanos": 1024329 },
+                            { "name": "XxeProcessingCheck", "calls": 36737, "durationNanos": 998497 }
+                          ]
+                        },
+                        { "name": "InvariantReturnCheck", "calls": 8902291, "durationNanos": 516269015 },
+                        { "name": "LiveVariables.analyze", "calls": 37136, "durationNanos": 707176741 },
+                        { "name": "LocksNotUnlockedCheck", "calls": 8902317, "durationNanos": 998535904 },
+                        { "name": "MapComputeIfAbsentOrPresentCheck", "calls": 8902291, "durationNanos": 618407264 },
+                        { "name": "MinMaxRangeCheck", "calls": 8902291, "durationNanos": 549788585 },
+                        { "name": "NoWayOutLoopCheck", "calls": 8902317, "durationNanos": 630058500 },
+                        { "name": "NonNullSetToNullCheck", "calls": 8902317, "durationNanos": 1378835630 },
+                        { "name": "NullDereferenceCheck", "calls": 8902824, "durationNanos": 1925608040 },
+                        { "name": "ObjectOutputStreamCheck", "calls": 8902291, "durationNanos": 517935697 },
+                        { "name": "OptionalGetBeforeIsPresentCheck", "calls": 8902317, "durationNanos": 1524548391 },
+                        { "name": "ParameterNullnessCheck", "calls": 8902291, "durationNanos": 1634921224 },
+                        { "name": "PostStatement", "calls": 891603, "durationNanos": 3763378632 },
+                        { "name": "PreStatement", "calls": 891569, "durationNanos": 3191727077, "children": [
+                            { "name": "AllowXMLInclusionCheck", "calls": 891569, "durationNanos": 39047535 },
+                            { "name": "BooleanGratuitousExpressionsCheck", "calls": 891569, "durationNanos": 35238107 },
+                            { "name": "ConditionalUnreachableCodeCheck", "calls": 891569, "durationNanos": 28701608 },
+                            { "name": "DenialOfServiceXMLCheck", "calls": 891569, "durationNanos": 65317846 },
+                            { "name": "DivisionByZeroCheck", "calls": 891569, "durationNanos": 82313582 },
+                            { "name": "InvariantReturnCheck", "calls": 891569, "durationNanos": 23055963 },
+                            { "name": "LocksNotUnlockedCheck", "calls": 891569, "durationNanos": 66825553 },
+                            { "name": "MapComputeIfAbsentOrPresentCheck", "calls": 891569, "durationNanos": 58402006 },
+                            { "name": "MinMaxRangeCheck", "calls": 891569, "durationNanos": 50257124 },
+                            { "name": "NoWayOutLoopCheck", "calls": 891569, "durationNanos": 148687778 },
+                            { "name": "NonNullSetToNullCheck", "calls": 891569, "durationNanos": 70086170 },
+                            { "name": "NullDereferenceCheck", "calls": 891569, "durationNanos": 69694244 },
+                            { "name": "ObjectOutputStreamCheck", "calls": 891569, "durationNanos": 45148942 },
+                            { "name": "OptionalGetBeforeIsPresentCheck", "calls": 891569, "durationNanos": 68269664 },
+                            { "name": "ParameterNullnessCheck", "calls": 891569, "durationNanos": 76361733 },
+                            { "name": "RedundantAssignmentsCheck", "calls": 891569, "durationNanos": 35677533 },
+                            { "name": "StreamConsumedCheck", "calls": 891569, "durationNanos": 87844514 },
+                            { "name": "StreamNotConsumedCheck", "calls": 891569, "durationNanos": 23576132 },
+                            { "name": "UnclosedResourcesCheck", "calls": 891569, "durationNanos": 150784913 },
+                            { "name": "XmlParserLoadsExternalSchemasCheck", "calls": 891569, "durationNanos": 33394234 },
+                            { "name": "XmlValidatedSignatureCheck", "calls": 891569, "durationNanos": 59561367 },
+                            { "name": "XxeProcessingCheck", "calls": 891569, "durationNanos": 55750721 }
+                          ]
+                        },
+                        { "name": "RedundantAssignmentsCheck", "calls": 8902291, "durationNanos": 359027150 },
+                        { "name": "StreamConsumedCheck", "calls": 8902291, "durationNanos": 3124396396 },
+                        { "name": "StreamNotConsumedCheck", "calls": 8902291, "durationNanos": 391057846 },
+                        { "name": "UnclosedResourcesCheck", "calls": 8902317, "durationNanos": 3941704731 },
+                        { "name": "XmlParserLoadsExternalSchemasCheck", "calls": 8902291, "durationNanos": 978974687 },
+                        { "name": "XmlValidatedSignatureCheck", "calls": 8902291, "durationNanos": 865553152 },
+                        { "name": "XxeProcessingCheck", "calls": 8902291, "durationNanos": 3467542474 },
+                        { "name": "cfg", "calls": 37136, "durationNanos": 163162916 },
+                        { "name": "handleBlockExit", "calls": 891568, "durationNanos": 18953244618 }
+                      ]
+                    },
+                    { "name": "SyntaxHighlighterVisitor", "calls": 5164, "durationNanos": 682472421 },
+                    { "name": "ThreadSuspensionDoSCheck", "calls": 5164, "durationNanos": 2611333 },
+                    { "name": "UnclosedResourcesCheck", "calls": 5164, "durationNanos": 3495615 },
+                    { "name": "UnsupportedMethodCheck", "calls": 5164, "durationNanos": 2579952 },
+                    { "name": "UselessPackageInfoCheck", "calls": 5164, "durationNanos": 52124404 },
+                    { "name": "XMLOperationsCheck", "calls": 5164, "durationNanos": 2495960 },
+                    { "name": "XPathInjectionCheck", "calls": 5164, "durationNanos": 2649320 },
+                    { "name": "XmlParserLoadsExternalSchemasCheck", "calls": 5164, "durationNanos": 280819 },
+                    { "name": "XmlValidatedSignatureCheck", "calls": 5164, "durationNanos": 228882 },
+                    { "name": "XxeProcessingCheck", "calls": 5164, "durationNanos": 1336096 },
+                    { "name": "ZipSlipCheck", "calls": 5164, "durationNanos": 2824790 }
+                  ]
+                },
+                { "name": "SymbolTable", "calls": 5164, "durationNanos": 396736852 }
+              ]
+            },
+            { "name": "Test", "calls": 1650, "durationNanos": 1421491325, "children": [
+                { "name": "CompilationUnit", "calls": 1650, "durationNanos": 677689 },
+                { "name": "Scanners", "calls": 1650, "durationNanos": 1220321636, "children": [
+                    { "name": "DefaultJavaResourceLocator", "calls": 1650, "durationNanos": 59376632 },
+                    { "name": "PostAnalysisIssueFilter", "calls": 1650, "durationNanos": 608220651 },
+                    { "name": "SyntaxHighlighterVisitor", "calls": 1650, "durationNanos": 277902637 },
+                    { "name": "TestFileMeasurer", "calls": 1650, "durationNanos": 270251556 }
+                  ]
+                },
+                { "name": "SymbolTable", "calls": 1650, "durationNanos": 172986871 }
+              ]
+            }
+          ]
+        },
+        { "name": "Convert", "calls": 6814, "durationNanos": 15606802252 }
+      ]
+    }
+  ]
+}
