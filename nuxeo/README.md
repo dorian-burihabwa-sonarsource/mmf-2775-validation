@@ -23,3 +23,11 @@ A simple run of the experiment can be done by running the main script
 ```bash
 ./run.sh
 ```
+
+
+### Parse results
+
+The results of a run can be parsed and dumped as as csv file using the python script in this folder.
+```bash
+./parse.py <reports folder> > data.csv
+```
