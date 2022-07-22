@@ -40,16 +40,8 @@ analyze() {
         esac
     done
 
-    # Check if the cache needs to be enabled
-    cache_enabled=${1}
-    if [[ "${cache_enabled}" != "true" && "${cache_enabled}" != "false" ]]; then
-        echo "First argument must be true or false to indicate whether to use the cache (received: ${cache_enabled})" >&2
-        exit 0
-    fi
-
-    # Check if we need to create and move to a new branch
-    if [[ "${#}" -eq 2 ]]; then
-        branch_to_create="${2}"
+    # If a branch name has been passed, create and switch to the branch
+    if [[ -n "${branch_to_create}" ]]; then
         git switch --create "${branch_to_create}"
     fi
 
