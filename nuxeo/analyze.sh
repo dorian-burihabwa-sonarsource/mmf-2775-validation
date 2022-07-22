@@ -1,7 +1,6 @@
 #! /usr/bin/env bash
 
-readonly base_branch="$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')"
-
+readonly BASE_COMMIT="0e4f94d1be742125a8657ceec76d2a0e90a2fff9"
 
 print_usage() {
     echo "Usage: ${0}"
@@ -40,25 +39,26 @@ analyze() {
         esac
     done
 
+    git checkout "${BASE_COMMIT}" --quiet
     # If a branch name has been passed, create and switch to the branch
     if [[ -n "${branch_to_create}" ]]; then
-        git switch --create "${branch_to_create}"
+        git switch --create "${branch_to_create}" --quiet
     fi
 
     # Create report folders
     local current_date=$(date -u +'%Y-%m-%d-T%H%M%S')
     local reports_folder="/reports/${current_date}"
     mkdir -p "${reports_folder}"
-    local current_branch=$(git branch --quiet | grep "\*" | cut -f2 -d" ")
+    local current_commit=$(git rev-parse HEAD)
     local using_cache="no-cache"
     if [[ "${cache_enabled}" == "true" ]]; then
         using_cache="with-cache"
     fi
-    local analysis_report="${reports_folder}/sq-${using_cache}-${current_branch}.log"
-    local performance_report="${reports_folder}/sonar.java.performance.measure-${using_cache}-${current_branch}.json"
+    local analysis_report="${reports_folder}/sq-${using_cache}-${current_commit}.log"
+    local performance_report="${reports_folder}/sonar.java.performance.measure-${using_cache}-${current_commit}.json"
 
-    if [[ "${current_branch}" == "${base_branch}" ]]; then
-        echo "On the base branch"
+    if [[ "${current_commit}" == "${BASE_COMMIT}" ]]; then
+        echo "On the base commit ${BASE_COMMIT}"
         mvn sonar:sonar -B -e \
             -Dsonar.java.jdkHome=JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 \
             -Dsonar.projectKey=nuxeo \
@@ -66,11 +66,11 @@ analyze() {
             -Dsonar.login="${SONARQUBE_TOKEN}" \
             -Dsonar.java.performance.measure=true \
             -Dsonar.java.performance.measure.path="${performance_report}" \
-            -Dsonar.branch.name="${current_branch}" \
+            -Dsonar.branch.name="${current_commit}" \
             -Dsonar.analysisCache.enabled="${cache_enabled}" \
             -Dsonar.internal.analysis.dbd="${dbd_enabled}" > "${analysis_report}"
     else
-        echo "Analysing ${current_branch} to merge into base branch ${base_branch}"
+        echo "Analysing ${current_commit} to merge into base branch ${BASE_COMMIT}"
         mvn sonar:sonar -B -e \
             -Dsonar.java.jdkHome=JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 \
             -Dsonar.projectKey=nuxeo \
@@ -78,9 +78,9 @@ analyze() {
             -Dsonar.login="${SONARQUBE_TOKEN}" \
             -Dsonar.java.performance.measure=true \
             -Dsonar.java.performance.measure.path="${performance_report}" \
-            -Dsonar.pullrequest.key="${current_branch}" \
-            -Dsonar.pullrequest.branch="${current_branch}" \
-            -Dsonar.pullrequest.base="${base_branch}" \
+            -Dsonar.pullrequest.key="${current_commit}" \
+            -Dsonar.pullrequest.branch="${current_commit}" \
+            -Dsonar.pullrequest.base="${BASE_COMMIT}" \
             -Dsonar.analysisCache.enabled="${cache_enabled}" \
             -Dsonar.internal.analysis.dbd="${dbd_enabled}" > "${analysis_report}"
     fi
