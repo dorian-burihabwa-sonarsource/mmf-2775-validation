@@ -4,18 +4,25 @@ readonly base_branch="$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs
 
 
 print_usage() {
-    echo "Usage: ${0} [--branch <branch-name>]"
+    echo "Usage: ${0}"
     echo ""
-    echo "  -b, --branch          Name of the branch to create off the main branch"
-    echo "  -c, --cache-enabled   Enable the cache (disabled by default)"
+    echo "  -b, --branch <branch-name>  Name of the branch to create off the main branch"
+    echo "  -c, --cache-enabled         Enable the cache (false by default)"
+    echo "  -d, --dbd-enabled           Disable Dataflow Bug Detection analyzer (true by default)"
+    echo "  -h, --help                  Print this help message"
 }
 
 analyze() {
-    local cache_enabled="false"
     local branch_to_create
+    local cache_enabled="false"
+    local dbd_enabled="true"
     for index in $(seq "${#}"); do
         local arg="${!index}"
         case "${arg}" in
+            --help|-h)
+                print_usage
+                exit 0
+                ;;
             --branch|-b)
                 index="$((index + 1))"
                 if [[ "${index}" -gt ${#} ]]; then
@@ -26,6 +33,9 @@ analyze() {
                 ;;
             --cache-enabled|-c)
                 cache_enabled="true"
+                ;;
+            --dbd-enabled|-d)
+                dbd_enabled="true"
                 ;;
         esac
     done
@@ -66,7 +76,7 @@ analyze() {
             -Dsonar.java.performance.measure.path="${performance_report}" \
             -Dsonar.branch.name="${current_branch}" \
             -Dsonar.analysisCache.enabled="${cache_enabled}" \
-            -Dsonar.internal.analysis.dbd=false > "${analysis_report}"
+            -Dsonar.internal.analysis.dbd="${dbd_enabled}" > "${analysis_report}"
     else
         echo "Analysing ${current_branch} to merge into base branch ${base_branch}"
         mvn sonar:sonar -B -e \
@@ -80,7 +90,7 @@ analyze() {
             -Dsonar.pullrequest.branch="${current_branch}" \
             -Dsonar.pullrequest.base="${base_branch}" \
             -Dsonar.analysisCache.enabled="${cache_enabled}" \
-            -Dsonar.internal.analysis.dbd=false > "${analysis_report}"
+            -Dsonar.internal.analysis.dbd="${dbd_enabled}" > "${analysis_report}"
     fi
 }
 
