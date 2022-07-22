@@ -64,6 +64,7 @@ analyze() {
             -Dsonar.login="${SONARQUBE_TOKEN}" \
             -Dsonar.java.performance.measure=true \
             -Dsonar.java.performance.measure.path="${performance_report}" \
+            -Dsonar.branch.name="${current_branch}" \
             -Dsonar.analysisCache.enabled="${cache_enabled}" \
             -Dsonar.internal.analysis.dbd=false > "${analysis_report}"
     else
