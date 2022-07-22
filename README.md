@@ -1,2 +1,2 @@
-# MMF-2775 validation experiments and notes
-Experiments to validate mmf-2775
+# Incremental analysis tooling
+Material to validate the integration of incremental analysis of Java projects.
