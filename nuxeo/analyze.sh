@@ -4,17 +4,34 @@ readonly base_branch="$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs
 
 
 print_usage() {
-    echo "Usage: ${0} <true|false> [branch-name]"
+    echo "Usage: ${0} [--branch <branch-name>]"
+    echo ""
+    echo "  -b, --branch          Name of the branch to create off the main branch"
+    echo "  -c, --cache-enabled   Enable the cache (disabled by default)"
 }
 
 analyze() {
-    if [[ "${#}" -eq 0 || "${#}" -gt 2 ]]; then
-        print_usage
-        exit 0
-    fi
+    local cache_enabled="false"
+    local branch_to_create
+    for index in $(seq "${#}"); do
+        local arg="${!index}"
+        case "${arg}" in
+            --branch|-b)
+                index="$((index + 1))"
+                if [[ "${index}" -gt ${#} ]]; then
+                    print_usage
+                    exit 0
+                fi
+                branch_to_create="${!index}"
+                ;;
+            --cache-enabled|-c)
+                cache_enabled="true"
+                ;;
+        esac
+    done
 
     # Check if the cache needs to be enabled
-    local cache_enabled=${1}
+    cache_enabled=${1}
     if [[ "${cache_enabled}" != "true" && "${cache_enabled}" != "false" ]]; then
         echo "First argument must be true or false to indicate whether to use the cache (received: ${cache_enabled})" >&2
         exit 0
@@ -22,7 +39,7 @@ analyze() {
 
     # Check if we need to create and move to a new branch
     if [[ "${#}" -eq 2 ]]; then
-        local branch_to_create="${2}"
+        branch_to_create="${2}"
         git switch --create "${branch_to_create}"
     fi
 
