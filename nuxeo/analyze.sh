@@ -78,8 +78,8 @@ analyze() {
             -Dsonar.login="${SONARQUBE_TOKEN}" \
             -Dsonar.java.performance.measure=true \
             -Dsonar.java.performance.measure.path="${performance_report}" \
-            -Dsonar.pullrequest.key="${current_commit}" \
-            -Dsonar.pullrequest.branch="${current_commit}" \
+            -Dsonar.pullrequest.key="${branch_to_create}" \
+            -Dsonar.pullrequest.branch="${branch_to_create}" \
             -Dsonar.pullrequest.base="${BASE_COMMIT}" \
             -Dsonar.analysisCache.enabled="${cache_enabled}" \
             -Dsonar.internal.analysis.dbd="${dbd_enabled}" > "${analysis_report}"
