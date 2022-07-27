@@ -57,7 +57,7 @@ analyze() {
     local analysis_report="${reports_folder}/sq-${using_cache}-${current_commit}.log"
     local performance_report="${reports_folder}/sonar.java.performance.measure-${using_cache}-${current_commit}.json"
 
-    if [[ "${current_commit}" == "${BASE_COMMIT}" ]]; then
+    if [[ -z "${branch_to_create}" ]]; then
         echo "On the base commit ${BASE_COMMIT}"
         mvn sonar:sonar -B -e \
             -Dsonar.java.jdkHome=JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 \
