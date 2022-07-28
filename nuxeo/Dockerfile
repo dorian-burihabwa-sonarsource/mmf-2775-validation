@@ -12,7 +12,7 @@ RUN npm install --location=global bower grunt-cli gulp yo
 
 RUN git clone https://github.com/nuxeo/nuxeo.git /opt/nuxeo
 WORKDIR /opt/nuxeo
-RUN git fetch --quiet && git checkout 0e4f94d1be742125a8657ceec76d2a0e90a2fff9
+RUN git fetch --quiet && git checkout 0e4f94d1be742125a8657ceec76d2a0e90a2fff9  --quiet && git switch --create base-branch --quiet
 RUN JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 /usr/bin/mvn -V -B -e test-compile
 COPY analyze.sh /opt/nuxeo/
 RUN chmod +x analyze.sh

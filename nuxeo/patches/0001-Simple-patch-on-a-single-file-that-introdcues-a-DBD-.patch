@@ -1,0 +1,41 @@
+From cae764e3ae17a8625b0674eeb93b8c9e63ef0857 Mon Sep 17 00:00:00 2001
+From: Dorian Burihabwa <dorian.burihabwa@sonarsource.com>
+Date: Wed, 27 Jul 2022 14:49:36 +0200
+Subject: [PATCH] Simple patch on a single file that introdcues a DBD issue
+ (S6322)
+
+---
+ .../org/nuxeo/common/collections/DependencyTree.java | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/nuxeo-common/src/main/java/org/nuxeo/common/collections/DependencyTree.java b/nuxeo-common/src/main/java/org/nuxeo/common/collections/DependencyTree.java
+index 132c0fdd744..2af6f212b9a 100644
+--- a/nuxeo-common/src/main/java/org/nuxeo/common/collections/DependencyTree.java
++++ b/nuxeo-common/src/main/java/org/nuxeo/common/collections/DependencyTree.java
+@@ -24,6 +24,7 @@ package org.nuxeo.common.collections;
+ import java.util.ArrayList;
+ import java.util.Arrays;
+ import java.util.Collection;
++import java.util.Collections;
+ import java.util.HashMap;
+ import java.util.HashSet;
+ import java.util.Iterator;
+@@ -367,4 +368,15 @@ public class DependencyTree<K, T> implements Iterable<DependencyTree.Entry<K, T>
+ 
+     }
+ 
++    public List<Integer> getNumbers(int length) {
++        List<Integer> numbers = getAList();
++        for (int i = 0; i < length; i++) {
++            numbers.set(i, i);
++        }
++        return numbers;
++    }
++
++    private static List<Integer> getAList() {
++        return Collections.emptyList();
++    }
+ }
+-- 
+2.25.1
+

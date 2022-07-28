@@ -1,10 +1,11 @@
 # Runtime analysis comparison on nuxeo
 
 ## Run the experiment
-### Build the container
+### Build the images
 
 ```bash
-docker build -t nuxeo .
+docker build --tag nuxeo .
+docker build --tag patched-nuxeo --file patched.Dockerfile .
 ```
 
 ### Run the experiment
