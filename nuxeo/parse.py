@@ -34,11 +34,11 @@ def inspect_sample(sample_folder):
         runtime = json_report["durationNanos"]
     cache_enabled = "with-cache" in analysis_file
     branch_name = re.search("sq\-.+\-cache-(?P<branch>.+)\.log", analysis_file).group("branch")
-    return Sample(branch_name, cache_enabled, runtime).to_text_array()
+    return Sample(branch_name, cache_enabled, runtime / 1_000_000_000).to_text_array()
 
 
 def build_table(folder):
-    table = [["Branch", "Cache enabled", "Runtime (ns)"]]
+    table = [["Branch", "Cache enabled", "Runtime (s)"]]
     sample_folders = list_folders(folder)
     for sample_folder in sample_folders:
         line = inspect_sample(sample_folder)
