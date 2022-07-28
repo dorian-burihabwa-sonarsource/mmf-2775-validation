@@ -5,7 +5,7 @@
 
 ```bash
 docker build --tag nuxeo .
-docker build --tag patched-nuxeo --file patched.Dockerfile .
+docker build --tag nuxeo-patched --file patched.Dockerfile .
 ```
 
 ### Run the experiment
