@@ -1,12 +1,14 @@
 #! /usr/bin/env python3
 
-from ast import arg
 from dataclasses import dataclass
+from typing import List
 
 import argparse
 import json
 import os
 import re
+
+import numpy
 
 def list_entries(root):
     return sorted([os.path.join(root, entry) for entry in os.listdir(root)])
@@ -24,8 +26,28 @@ class Sample:
     cache_enabled: bool
     runtime: int
     
-    def to_text_array(self):
+    def to_text_array(self) -> List[str]:
         return [self.branch_name, str(self.cache_enabled), str(self.runtime)]
+
+@dataclass
+class SampleAggregation:
+    samples: List[Sample]
+
+    def to_text_array(self) -> List[str]:
+        if not self.samples:
+            return []
+        line  = self.samples[0].to_text_array()
+        if len(self.samples) == 1:
+            return line
+        for i in range(1, len(self.samples)):
+            sample = self.samples[i]
+            line.append(str(sample.runtime))
+        runtimes = [sample.runtime for sample in self.samples]
+        line.append(str(numpy.median(runtimes)))
+        line.append(str(numpy.average(runtimes)))
+        line.append(str(numpy.std(runtimes)))
+
+        return line
 
 def inspect_sample(sample_folder):
     json_file, analysis_file = list_files(sample_folder)
@@ -34,14 +56,34 @@ def inspect_sample(sample_folder):
         runtime = json_report["durationNanos"]
     cache_enabled = "with-cache" in analysis_file
     branch_name = re.search("sq\-.+\-cache-(?P<branch>.+)\.log", analysis_file).group("branch")
-    return Sample(branch_name, cache_enabled, runtime / 1_000_000_000).to_text_array()
+    return Sample(branch_name, cache_enabled, (runtime / 1_000_000_000))
+
+def aggregate(samples: List[Sample]) -> List[SampleAggregation]:
+    grouping = {}
+    for sample in samples:
+        key = sample.branch_name + str(sample.cache_enabled)
+        if key in grouping:
+            grouping[key].append(sample)
+        else:
+            grouping[key] = [sample]
+    return [SampleAggregation(group) for group in grouping.values()]
 
 
-def build_table(folder):
-    table = [["Branch", "Cache enabled", "Runtime (s)"]]
+def build_table(folder: str) -> List[str]:
     sample_folders = list_folders(folder)
+    samples = []
     for sample_folder in sample_folders:
-        line = inspect_sample(sample_folder)
+        sample = inspect_sample(sample_folder)
+        samples.append(sample)
+    groupings = aggregate(samples)
+
+    header = ["Branch", "Cache enabled"]
+    header += ["Runtime(s)" for _ in range(len(groupings[0].samples))]
+    header += ["Median", "Average", "StdDev"]
+    table = [header]
+
+    for grouping in groupings:
+        line = grouping.to_text_array()
         table.append(line)
     return table
 
